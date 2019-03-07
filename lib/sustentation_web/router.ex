@@ -1,6 +1,8 @@
 defmodule SustentationWeb.Router do
   use SustentationWeb, :router
 
+  alias Guardian.Plug.{EnsureAuthenticated, LoadResource, VerifyHeader}
+
   pipeline :api do
     plug :accepts, ["json"]
 
@@ -11,11 +13,19 @@ defmodule SustentationWeb.Router do
     )
   end
 
+  pipeline :authenticate do
+    plug(VerifyHeader)
+    plug(EnsureAuthenticated)
+    plug(LoadResource)
+  end
+
   scope "/api", SustentationWeb do
     pipe_through :api
 
-    resources "/users", UserController, except: [:new, :edit]
-
     post("/authenticate", UserController, :authenticate)
+
+    pipe_through :authenticate
+
+    resources "/users", UserController, except: [:new, :edit]
   end
 end

@@ -43,7 +43,7 @@ defmodule SustentationWeb.UserController do
 
   def authenticate(conn, params) do
     with {:ok, user} <- Sustentation.Auth.verify_login(params),
-         {:ok, token, _full_claims} <- Guardian.encode_and_sign(user, %{}) do
+         {:ok, token, _full_claims} <- Sustentation.Guardian.encode_and_sign(user, %{}) do
       conn |> render("auth.json", token: token, user: user)
     end
   end
