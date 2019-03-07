@@ -25,8 +25,8 @@ defmodule SustentationWeb.UserController do
     render(conn, "show.json", user: user)
   end
 
-  def update(conn, %{"id" => id, "user" => user_params}) do
-    user = Auth.get_user!(id)
+  def update(conn, user_params) do
+    user = Auth.get_user!(user_params["id"])
 
     with {:ok, %User{} = user} <- Auth.update_user(user, user_params) do
       render(conn, "show.json", user: user)

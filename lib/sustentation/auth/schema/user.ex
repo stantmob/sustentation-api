@@ -18,7 +18,11 @@ defmodule Sustentation.Auth.User do
     |> encrypt_password()
   end
 
-  def encrypt_password(%Ecto.Changeset{valid?: true, changes: %{password: password}} = changeset) do
-    put_change(changeset, :encrypted_password, Bcrypt.hash_pwd_salt(password))
+  @spec encrypt_password(Ecto.Changeset.t()) :: Ecto.Changeset.t()
+
+  def encrypt_password(changeset) do
+    with %Ecto.Changeset{valid?: true, changes: %{password: password}} = changeset <- changeset do
+      put_change(changeset, :encrypted_password, Bcrypt.hash_pwd_salt(password))
+    end
   end
 end

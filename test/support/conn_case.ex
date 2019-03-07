@@ -21,6 +21,8 @@ defmodule SustentationWeb.ConnCase do
       use Phoenix.ConnTest
       alias SustentationWeb.Router.Helpers, as: Routes
 
+      import SustentationWeb.ConnCase, only: [render_json: 3]
+
       # The default endpoint for testing
       @endpoint SustentationWeb.Endpoint
     end
@@ -34,5 +36,16 @@ defmodule SustentationWeb.ConnCase do
     end
 
     {:ok, conn: Phoenix.ConnTest.build_conn()}
+  end
+
+  @doc """
+  A helper that renders the view template encoded in Elixir's map structure.
+  """
+  @spec render_json(module, String.t(), map) :: map
+  def render_json(view, template, assigns) do
+    template
+    |> view.render(assigns)
+    |> Jason.encode!()
+    |> Jason.decode!()
   end
 end
