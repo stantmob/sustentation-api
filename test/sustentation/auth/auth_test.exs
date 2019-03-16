@@ -54,5 +54,20 @@ defmodule Sustentation.AuthTest do
     test "change_user/1 returns a user changeset", %{user: user} do
       assert %Ecto.Changeset{} = Auth.change_user(user)
     end
+
+    test "verify_login/1 returns ok with correct credentials", %{user: user} do
+      credentials = %{"login" => user.login, "password" => "senhasenha"}
+      assert Auth.verify_login(credentials) == {:ok, user}
+    end
+
+    test "verify_login/1 returns error with wrong login" do
+      credentials = %{"login" => "wrong_login", "password" => ""}
+      assert Auth.verify_login(credentials) == {:error, :unauthorized}
+    end
+
+    test "verify_login/1 returns error with wrong password", %{user: user} do
+      credentials = %{"login" => user.login, "password" => "wrong_password"}
+      assert Auth.verify_login(credentials) == {:error, :unauthorized}
+    end
   end
 end
