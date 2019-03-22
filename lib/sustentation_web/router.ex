@@ -27,5 +27,7 @@ defmodule SustentationWeb.Router do
     pipe_through :authenticate
 
     resources "/users", UserController, except: [:new, :edit]
+
+    resources "/categories", CategoryController, except: [:new, :edit]
   end
 end
