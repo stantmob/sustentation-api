@@ -1,5 +1,4 @@
 defmodule Sustentation.IssuesTest do
-  import Sustentation.Factories
   use Sustentation.DataCase
 
   alias Sustentation.Issues
