@@ -21,6 +21,7 @@ defmodule Sustentation.DataCase do
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
+      import Sustentation.Factories
       import Sustentation.DataCase
     end
   end

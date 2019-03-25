@@ -8,4 +8,11 @@ defmodule Sustentation.Factories do
       encrypted_password: Bcrypt.hash_pwd_salt("senhasenha")
     }
   end
+
+  def category_factory do
+    %Sustentation.Issues.Category{
+      name: "Problema Web",
+      description: "Erro no sistema web."
+    }
+  end
 end

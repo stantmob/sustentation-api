@@ -22,6 +22,7 @@ defmodule SustentationWeb.ConnCase do
       alias SustentationWeb.Router.Helpers, as: Routes
 
       import SustentationWeb.ConnCase, only: [render_json: 3]
+      import Sustentation.Factories
 
       # The default endpoint for testing
       @endpoint SustentationWeb.Endpoint
