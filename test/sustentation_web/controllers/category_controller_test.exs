@@ -82,10 +82,6 @@ defmodule SustentationWeb.CategoryControllerTest do
     test "deletes chosen category", %{conn: conn, category: category} do
       conn = delete(conn, Routes.category_path(conn, :delete, category))
       assert response(conn, 204)
-
-      assert_error_sent 404, fn ->
-        get(conn, Routes.category_path(conn, :show, category))
-      end
     end
   end
 end

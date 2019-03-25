@@ -24,18 +24,14 @@ defmodule Sustentation.Issues do
   @doc """
   Gets a single category.
 
-  Raises `Ecto.NoResultsError` if the Category does not exist.
-
-  ## Examples
-
-      iex> get_category!(123)
-      %Category{}
-
-      iex> get_category!(456)
-      ** (Ecto.NoResultsError)
-
+  Returns `{:error, :not_found}` if the Category does not exist.
   """
-  def get_category!(id), do: Repo.get!(Category, id)
+  def get_category(id) do
+    case Repo.get(Category, id) do
+      %Category{} = category -> {:ok, category}
+      _ -> {:error, :not_found}
+    end
+  end
 
   @doc """
   Creates a category.
@@ -87,18 +83,5 @@ defmodule Sustentation.Issues do
   """
   def delete_category(%Category{} = category) do
     Repo.delete(category)
-  end
-
-  @doc """
-  Returns an `%Ecto.Changeset{}` for tracking category changes.
-
-  ## Examples
-
-      iex> change_category(category)
-      %Ecto.Changeset{source: %Category{}}
-
-  """
-  def change_category(%Category{} = category) do
-    Category.changeset(category, %{})
   end
 end

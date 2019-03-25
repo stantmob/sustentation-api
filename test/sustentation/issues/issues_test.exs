@@ -20,7 +20,7 @@ defmodule Sustentation.IssuesTest do
     end
 
     test "get_category!/1 returns the category with given id", %{category: category} do
-      assert Issues.get_category!(category.id) == category
+      assert Issues.get_category(category.id) == {:ok, category}
     end
 
     test "create_category/1 with valid data creates a category" do
@@ -41,16 +41,15 @@ defmodule Sustentation.IssuesTest do
 
     test "update_category/2 with invalid data returns error changeset", %{category: category} do
       assert {:error, %Ecto.Changeset{}} = Issues.update_category(category, @invalid_attrs)
-      assert category == Issues.get_category!(category.id)
+      assert {:ok, category} == Issues.get_category(category.id)
     end
 
     test "delete_category/1 deletes the category", %{category: category} do
       assert {:ok, %Category{}} = Issues.delete_category(category)
-      assert_raise Ecto.NoResultsError, fn -> Issues.get_category!(category.id) end
     end
 
-    test "change_category/1 returns a category changeset", %{category: category} do
-      assert %Ecto.Changeset{} = Issues.change_category(category)
+    test "delete_category/1 with invalid data returns error not_found" do
+      assert {:error, :not_found} == Issues.get_category(3)
     end
   end
 end

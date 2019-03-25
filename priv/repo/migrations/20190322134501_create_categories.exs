@@ -3,8 +3,8 @@ defmodule Sustentation.Repo.Migrations.CreateCategories do
 
   def change do
     create table(:categories) do
-      add :name, :string
-      add :description, :string
+      add :name, :string, size: ?, null: false
+      add :description, :string, size: ?
 
       timestamps()
     end

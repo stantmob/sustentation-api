@@ -21,22 +21,21 @@ defmodule SustentationWeb.CategoryController do
   end
 
   def show(conn, %{"id" => id}) do
-    category = Issues.get_category!(id)
-    render(conn, "show.json", category: category)
+    with {:ok, %Category{} = category} <- Issues.get_category(id) do
+      render(conn, "show.json", category: category)
+    end
   end
 
   def update(conn, %{"id" => id} = category_params) do
-    category = Issues.get_category!(id)
-
-    with {:ok, %Category{} = category} <- Issues.update_category(category, category_params) do
+    with {:ok, %Category{} = category} <- Issues.get_category(id),
+         {:ok, %Category{} = category} <- Issues.update_category(category, category_params) do
       render(conn, "show.json", category: category)
     end
   end
 
   def delete(conn, %{"id" => id}) do
-    category = Issues.get_category!(id)
-
-    with {:ok, %Category{}} <- Issues.delete_category(category) do
+    with {:ok, %Category{} = category} <- Issues.get_category(id),
+         {:ok, %Category{}} <- Issues.delete_category(category) do
       send_resp(conn, :no_content, "")
     end
   end

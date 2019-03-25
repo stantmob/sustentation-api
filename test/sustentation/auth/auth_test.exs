@@ -51,10 +51,6 @@ defmodule Sustentation.AuthTest do
       assert_raise Ecto.NoResultsError, fn -> Auth.get_user!(user.id) end
     end
 
-    test "change_user/1 returns a user changeset", %{user: user} do
-      assert %Ecto.Changeset{} = Auth.change_user(user)
-    end
-
     test "verify_login/1 returns ok with correct credentials", %{user: user} do
       credentials = %{"login" => user.login, "password" => "senhasenha"}
       assert Auth.verify_login(credentials) == {:ok, user}
