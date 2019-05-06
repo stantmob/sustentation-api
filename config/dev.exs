@@ -13,6 +13,9 @@ config :sustentation, SustentationWeb.Endpoint,
   check_origin: false,
   watchers: []
 
+config :sustentation,
+  env: :dev
+
 # ## SSL Support
 #
 # In order to use HTTPS in development, a self-signed
@@ -48,9 +51,5 @@ config :phoenix, :stacktrace_depth, 20
 config :phoenix, :plug_init_mode, :runtime
 
 # Configure your database
-config :sustentation, Sustentation.Repo,
-  username: "stant",
-  password: "stant",
-  database: "sustentation_dev",
-  hostname: "172.20.20.189",
-  pool_size: 10
+
+import_config "dev.secret.exs"

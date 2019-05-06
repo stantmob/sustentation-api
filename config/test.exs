@@ -9,10 +9,4 @@ config :sustentation, SustentationWeb.Endpoint,
 # Print only warnings and errors during test
 config :logger, level: :warn
 
-# Configure your database
-config :sustentation, Sustentation.Repo,
-  username: "stant",
-  password: "stant",
-  database: "sustentation_test",
-  hostname: "172.20.20.189",
-  pool: Ecto.Adapters.SQL.Sandbox
+import_config "test.secret.exs"
